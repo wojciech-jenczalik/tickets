@@ -11,10 +11,11 @@ import (
 )
 
 func main() {
-	fmt.Println(os.Getenv("GMAIL_PASS"))
+	port := os.Getenv("PORT")
+	http.ListenAndServe(":"+port, nil)
 	for true {
 		resp, err := http.Get("https://www.stockholmlive.com/en/events/detail/csgo-major")
-		if(err != nil) {
+		if err != nil {
 			fmt.Println("Error while visiting website")
 			continue
 		}
