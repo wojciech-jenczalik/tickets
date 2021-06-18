@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func start(w http.ResponseWriter, r *http.Request) {
+func start() {
 	for true {
 		resp, err := http.Get("https://www.stockholmlive.com/en/events/detail/csgo-major")
 		if err != nil {
@@ -52,6 +52,6 @@ func start(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	port := os.Getenv("PORT")
-	http.HandleFunc("/", start)
+	go start()
 	http.ListenAndServe(":"+port, nil)
 }
