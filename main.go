@@ -10,9 +10,7 @@ import (
 	"time"
 )
 
-func main() {
-	port := os.Getenv("PORT")
-	http.ListenAndServe(":"+port, nil)
+func start(w http.ResponseWriter, r *http.Request) {
 	for true {
 		resp, err := http.Get("https://www.stockholmlive.com/en/events/detail/csgo-major")
 		if err != nil {
@@ -50,4 +48,10 @@ func main() {
 
 		time.Sleep(30 * time.Minute)
 	}
+}
+
+func main() {
+	port := os.Getenv("PORT")
+	http.HandleFunc("/", start)
+	http.ListenAndServe(":"+port, nil)
 }
